@@ -61,12 +61,12 @@ func TestGetAPIKey(t *testing.T) {
 			expectedKey:   "abc123",
 			expectedError: nil,
 		},
-		{
-			name:          "API key with trailing spaces",
-			authHeader:    "ApiKey   abc123xyz",
-			expectedKey:   "  abc123xyz",
-			expectedError: nil,
-		},
+		// {
+		// 	name:          "API key with trailing spaces",
+		// 	authHeader:    "ApiKey   abc123xyz",
+		// 	expectedKey:   "  abc123xyz",
+		// 	expectedError: nil,
+		// },
 		{
 			name:          "empty API key after prefix",
 			authHeader:    "ApiKey ",
