@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -91,8 +92,17 @@ func main() {
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: router,
+		// Fixes Gosec G114: Set timeouts to prevent Slowloris
+		ReadTimeout:  5 * time.Second,   // Max time to read the entire request
+		WriteTimeout: 10 * time.Second,  // Max time to write the response
+		IdleTimeout:  120 * time.Second, // Max time to keep idle keep-alive connections
 	}
 
 	log.Printf("Serving on port: %s\n", port)
 	log.Fatal(srv.ListenAndServe())
 }
+
+// func unused() {
+// 	// this function does nothing
+// 	// and is called nowhere
+// }
